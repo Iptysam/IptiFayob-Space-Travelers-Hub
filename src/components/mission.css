@@ -1,0 +1,7 @@
+.mission:nth-child(odd) {
+  background: lightgray;
+}
+
+.column {
+  border-right: 1px solid rgb(184, 183, 183);
+}
