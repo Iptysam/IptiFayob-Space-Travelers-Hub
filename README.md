@@ -43,9 +43,9 @@ LinkedIn: [@abimbola-ade](https://www.linkedin.com/in/abimbola-ade)
 
 GitHub: [@iptisam](https://github.com/Iptysam)
 
-Twitter: [@twitter](#)
+Twitter: [@twitter](https://twitter.com/IptisamMukadam)
 
-LinkedIn: [@linkedin](#)
+LinkedIn: [@linkedin](https://www.linkedin.com/in/iptisam-mukadam-4b2b39239)
 
 ## Contributing
 
