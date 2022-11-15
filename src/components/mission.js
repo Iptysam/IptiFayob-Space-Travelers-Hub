@@ -8,7 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './mission.css';
 
 const Mission = ({ mission }) => {
-  const { mission_name, description } = mission;
+  const {
+    mission_name, description, reserved,
+  } = mission;
+
   return (
     <Row className="ps-2 mission">
       <Col className="col-3 column">
@@ -18,10 +21,12 @@ const Mission = ({ mission }) => {
         <p>{description}</p>
       </Col>
       <Col className="d-flex align-items-center justify-content-center column">
-        <Alert variant="secondary" className="p-1">Active Member</Alert>
+        <Alert variant="secondary" className="p-1">
+          {reserved ? 'Active Member' : 'Not a member'}
+        </Alert>
       </Col>
       <Col className="d-flex align-items-center justify-content-center">
-        <Button variant="danger">Join Mission</Button>
+        <Button variant="danger">{reserved ? 'Leave Mission' : 'Join Mission'}</Button>
       </Col>
     </Row>
 
