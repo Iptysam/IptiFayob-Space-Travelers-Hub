@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Button, Col, Row, Alert,
 } from 'react-bootstrap';
-import { joinMission } from '../redux/mission/mission.redux';
+import { joinMission, leaveMission } from '../redux/mission/mission.redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './mission.css';
 
@@ -15,6 +15,10 @@ const Mission = ({
 
   const joinMissionHandler = (id) => {
     dispatch(joinMission(id));
+  };
+
+  const leaveMissionHandler = (id) => {
+    dispatch(leaveMission(id));
   };
 
   return (
@@ -41,7 +45,7 @@ const Mission = ({
       </Col>
       <Col className="d-flex align-items-center justify-content-center">
         {reserved
-          ? <Button variant="danger" className="leave_btn">Leave Mission</Button>
+          ? <Button variant="danger" className="leave_btn" onClick={() => leaveMissionHandler(missionId)}>Leave Mission</Button>
           : <Button variant="danger" className="join_btn" onClick={() => joinMissionHandler(missionId)}>Join Mission</Button>}
       </Col>
     </Row>
