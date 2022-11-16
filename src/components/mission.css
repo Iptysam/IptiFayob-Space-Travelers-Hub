@@ -5,3 +5,33 @@
 .column {
   border-right: 1px solid rgb(184, 183, 183);
 }
+
+.active_member {
+  color: aliceblue;
+  background: lightseagreen;
+}
+
+.not_a_member {
+  color: aliceblue;
+  background: rgb(107, 104, 104);
+}
+
+.join_btn {
+  background: transparent;
+  color: rgb(87, 87, 87);
+  border: 1px solid rgb(87, 87, 87);
+  padding: 0.5rem;
+}
+
+.join_btn:hover {
+  background: rgb(87, 87, 87);
+  color: white;
+  border: 1px solid rgb(87, 87, 87);
+}
+
+.leave_btn {
+  background: transparent;
+  color: red;
+  border: 1px solid red;
+  padding: 0.5rem;
+}
