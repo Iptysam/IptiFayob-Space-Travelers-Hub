@@ -10,7 +10,7 @@ const Missions = () => {
   const missionState = useSelector((state) => state.mission);
 
   useEffect(() => {
-    dispatch(allMissions());
+    if (missionState.length === 0) dispatch(allMissions());
   }, []);
 
   return (
