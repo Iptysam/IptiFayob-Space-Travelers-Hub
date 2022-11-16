@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
-import './profile.css';
+import './profiles.css';
 
 const Profile = () => {
   const missionState = useSelector((state) => state.mission);
