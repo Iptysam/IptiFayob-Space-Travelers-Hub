@@ -8,7 +8,6 @@ export const allMissions = createAsyncThunk('mission/allMissions', async (_, thu
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.log(thunk.rejectWithValue(error.response));
     return thunk.rejectWithValue(error.response.data);
   }
 });
@@ -16,10 +15,21 @@ export const allMissions = createAsyncThunk('mission/allMissions', async (_, thu
 const MissionSlice = createSlice({
   name: 'mission',
   initialState: [],
-  reducers: {},
+  reducers: {
+    joinMission: (state, action) => {
+      const newState = state.map((mission) => {
+        if (mission.mission_id === action.payload) {
+          return { ...mission, reserved: true };
+        }
+        return { ...mission };
+      });
+      return newState;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(allMissions.fulfilled, (state, action) => action.payload);
   },
 });
 
+export const { joinMission } = MissionSlice.actions;
 export default MissionSlice.reducer;
