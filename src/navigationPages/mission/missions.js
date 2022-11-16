@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
@@ -24,9 +25,20 @@ const Missions = () => {
         <h2>Status</h2>
       </Col>
       <Col />
-      {missionState.map((mission) => (
-        <Mission key={mission.mission_id} mission={mission} />
-      ))}
+      {missionState.map((mission) => {
+        const {
+          mission_id, mission_name, description, reserved,
+        } = mission;
+        return (
+          <Mission
+            key={mission_id}
+            missionId={mission_id}
+            missionName={mission_name}
+            description={description}
+            reserved={reserved}
+          />
+        );
+      })}
     </Row>
   );
 };
