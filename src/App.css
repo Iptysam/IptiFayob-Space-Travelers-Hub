@@ -1,0 +1,13 @@
+.planet {
+  width: 50px;
+}
+
+.nav-logo h1 {
+  margin-left: 20px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
