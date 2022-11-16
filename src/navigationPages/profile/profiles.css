@@ -1,0 +1,19 @@
+.profile_container {
+  width: 90vw;
+  display: flex;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
+.profile_column {
+  width: 50%;
+  padding: 0.6rem 0;
+  margin-left: 2rem;
+  text-align: start;
+}
+
+.profile_row {
+  margin-left: 2rem;
+  padding: 1rem;
+  border: 1px solid lightgray;
+}

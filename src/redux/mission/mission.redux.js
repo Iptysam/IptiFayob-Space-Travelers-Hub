@@ -25,6 +25,7 @@ const MissionSlice = createSlice({
       });
       return newState;
     },
+
     leaveMission(state, action) {
       return state.map((mission) => {
         if (mission.mission_id === action.payload) {
@@ -36,6 +37,7 @@ const MissionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(allMissions.fulfilled, (state, action) => action.payload);
+    builder.addCase(allMissions.rejected, (state, action) => console.log(action.payload));
   },
 });
 
