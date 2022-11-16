@@ -1,54 +1,63 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import Axios from 'axios';
 
-const initialState = [];
+// conts
+const FETCH_ROCKET = 'spaceTravelersHub/rockets/FETCH_ROCKET';
+const BOOK_ROCKET = 'spaceTravelersHub/rockets/BOOK_ROCKET';
 
-const API = 'https://api.spacexdata.com/v3/rockets';
-
-export const getRocketAPI = createAsyncThunk(
-  'rockets/getRockets',
-  async () => {
-    const resp = await axios.get(API);
-    return resp.data;
-  },
-);
-
-const RocketSlicer = createSlice({
-  name: 'Rockets',
-  initialState,
-  reducers: {
-    reserveRocket: {
-      reducer: (state, action) => state.map((item) => (
-        item.rocketId === action.payload ? { ...item, rocketReserved: true } : item
-      )),
-      prepare: (rocketId) => ({
-        payload: rocketId,
-      }),
-    },
-    cancelRocket: {
-      reducer: (state, action) => state.map((item) => (
-        item.rocketId === action.payload ? { ...item, reserveRocket: false } : item
-      )),
-      prepare: (rocketId) => ({
-        payload: rocketId,
-      }),
-    },
-  },
-
-  extraReducers: {
-    [getRocketAPI.fulfilled]: (state, action) => {
-      const rockets = action.payload.map((item) => ({
-        rocketId: item.rocket_id,
-        rocketName: item.rocket_name,
-        rocketDesc: item.description,
-        rocketImage: item.flickr_images[0],
-        rocketWiki: item.wikipedia,
-      }));
-      return rockets;
-    },
-  },
+// actions
+const fetchRocket = (payload) => ({
+  type: FETCH_ROCKET,
+  payload,
 });
 
-export const { reserveRocket, cancelRocket } = RocketSlicer.actions;
+export const bookRocket = (payload) => ({
+  type: BOOK_ROCKET,
+  payload,
+});
 
-export default RocketSlicer.reducer;
+//   APIs-functions
+
+export const fetchRocketApi = () => async (dispatch) => {
+  const returnValue = await Axios.get('https://api.spacexdata.com/v3/rockets');
+  const { data } = returnValue;
+  const rockets = [];
+  for (let i = 0; i < data.length; i += 1) {
+    const name = data[i].rocket_name;
+    const { id } = data[i];
+    const { description } = data[i];
+    const image = data[i].flickr_images[0];
+    const reserved = false;
+    const object = {
+      id, name, description, image, reserved,
+    };
+    rockets.push(object);
+  }
+  dispatch(fetchRocket(rockets));
+};
+
+// rocket-booking
+
+const reserveCancelRocket = (state, payload) => {
+  const newState = state.map((rocket) => {
+    if (rocket.id !== payload) return rocket;
+    return { ...rocket, reserved: !rocket.reserved };
+  });
+  return newState;
+};
+
+// state
+const initialState = [];
+
+// reducer
+const rocketReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_ROCKET:
+      return action.payload;
+    case BOOK_ROCKET:
+      return reserveCancelRocket(state, action.payload);
+    default:
+      return state;
+  }
+};
+
+export default rocketReducer;

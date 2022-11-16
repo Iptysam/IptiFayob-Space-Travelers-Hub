@@ -2,8 +2,9 @@ import React from 'react';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Profile from './components/profile';
-import Rockets from './components/rocket';
+import Profile from './navigationPages/profile/profile';
+import Rockets from './components/Rockets';
+import Mission from './navigationPages/mission/missions';
 
 const App = () => (
   <Router>
