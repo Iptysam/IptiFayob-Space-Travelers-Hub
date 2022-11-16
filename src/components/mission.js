@@ -1,40 +1,58 @@
-/* eslint-disable camelcase */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Button, Col, Row, Alert,
 } from 'react-bootstrap';
+import { joinMission } from '../redux/mission/mission.redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './mission.css';
 
-const Mission = ({ mission }) => {
-  const {
-    mission_name, description, reserved,
-  } = mission;
+const Mission = ({
+  missionName, description, reserved, missionId,
+}) => {
+  const dispatch = useDispatch();
+
+  const joinMissionHandler = (id) => {
+    dispatch(joinMission(id));
+  };
 
   return (
     <Row className="ps-2 mission">
       <Col className="col-3 column">
-        <h4>{mission_name}</h4>
+        <h4>{missionName}</h4>
       </Col>
       <Col className="col-6 column">
         <p>{description}</p>
       </Col>
       <Col className="d-flex align-items-center justify-content-center column">
-        <Alert variant="secondary" className="p-1">
-          {reserved ? 'Active Member' : 'Not a member'}
-        </Alert>
+        {reserved
+          ? (
+            <Alert variant="secondary" className="p-1 active_member">
+              Active Member
+            </Alert>
+          )
+          : (
+            <Alert variant="secondary" className="p-1 not_a_member">
+              Not a member
+            </Alert>
+          )}
+
       </Col>
       <Col className="d-flex align-items-center justify-content-center">
-        <Button variant="danger">{reserved ? 'Leave Mission' : 'Join Mission'}</Button>
+        {reserved
+          ? <Button variant="danger" className="leave_btn">Leave Mission</Button>
+          : <Button variant="danger" className="join_btn" onClick={() => joinMissionHandler(missionId)}>Join Mission</Button>}
       </Col>
     </Row>
-
   );
 };
 
 Mission.propTypes = {
-  mission: PropTypes.string.isRequired,
+  missionName: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  reserved: PropTypes.bool.isRequired,
+  missionId: PropTypes.string.isRequired,
 };
 
 export default Mission;
