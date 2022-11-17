@@ -12,9 +12,11 @@ export const allMissions = createAsyncThunk('mission/allMissions', async (_, thu
   }
 });
 
+export const initialState = [];
+
 const MissionSlice = createSlice({
   name: 'mission',
-  initialState: [],
+  initialState,
   reducers: {
     joinMission: (state, action) => {
       const newState = state.map((mission) => {
